@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of hnd_corresp_coordnorm</title>
+  <meta name="keywords" content="hnd_corresp_coordnorm">
+  <meta name="description" content="HND_CORRESP_COORDNORM Normalise coordinates">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; hnd_corresp_coordnorm.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>hnd_corresp_coordnorm
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>HND_CORRESP_COORDNORM Normalise coordinates</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">HND_CORRESP_COORDNORM Normalise coordinates
+
+ [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)
+
+ Normalises the correspondence points X1_ and X2_ into a more
+ &quot;compact&quot; point cloud. Un transforms the source points to their 
+ more compact space (analysis) and Tn is the same for the target
+ points (synthesis). For any homography estimated between these
+ more compact spaces, the homography must be &quot;denormalised&quot; on the
+ both side.
+
+ Note: This normalisation is _necessary_ for the direct linear
+ transformation (DLT) based homogarphy estimation methods [1].
+
+ Note: Do NOT give the homogenous coordinate if it does represent
+ a &quot;true homography coordinate&quot;, i.e. values are not constants
+ (1). This normalisation automatically assumes that the values are
+ constant (1) and normalises the &quot;varying dimensions&quot; according to
+ that fact.
+
+ Output:
+  nX1 - DxN (e.g. 2xN) normalised coordinates of X1_
+  nX2 - DxN (e.g. 2xN) normalised coordinates of X2_
+  Un  - Transform to normalised &quot;analysis&quot; space (X1)
+  Tn  - Transform to normalised &quot;synthesis&quot; space (X2)
+
+ Input:
+  X1_    - DxN (2xN or 3xN) (inhomogenous) coordinates
+  X2_    - DxN (2xN or 3xN) (inhomogenous) coordinates
+
+  nm_    - Normalization method to be used
+           0: No normalization
+           1: The one from [1] - isotropic scaling (PREFERRED for REAL data)
+           2: The one from [1] - non-isotropic scaling (PREFERRED for ARTIFICIAL data)
+
+ See also <a href="hnd_corresp_coorddenorm.html" class="code" title="function [H] = hnd_corresp_coorddenorm(nH_, Un_, Tn_)">HND_CORRESP_COORDDENORM</a>.M and <a href="h2d_corresp_dlt.html" class="code" title="function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)">H2D_CORRESP_DLT</a>.M
+
+ References:
+
+  [1] Hartley, R., Zisserman, A., Multiple View Geometry in
+  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $
+
+%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_corresp.html" class="code" title="function [H] = h2d_corresp(X1_,X2_,varargin)">h2d_corresp</a>	H2D_CORRESP Estimate 2-D homography between point correspondence</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%HND_CORRESP_COORDNORM Normalise coordinates</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% Normalises the correspondence points X1_ and X2_ into a more</span>
+0006 <span class="comment">% &quot;compact&quot; point cloud. Un transforms the source points to their</span>
+0007 <span class="comment">% more compact space (analysis) and Tn is the same for the target</span>
+0008 <span class="comment">% points (synthesis). For any homography estimated between these</span>
+0009 <span class="comment">% more compact spaces, the homography must be &quot;denormalised&quot; on the</span>
+0010 <span class="comment">% both side.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Note: This normalisation is _necessary_ for the direct linear</span>
+0013 <span class="comment">% transformation (DLT) based homogarphy estimation methods [1].</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% Note: Do NOT give the homogenous coordinate if it does represent</span>
+0016 <span class="comment">% a &quot;true homography coordinate&quot;, i.e. values are not constants</span>
+0017 <span class="comment">% (1). This normalisation automatically assumes that the values are</span>
+0018 <span class="comment">% constant (1) and normalises the &quot;varying dimensions&quot; according to</span>
+0019 <span class="comment">% that fact.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% Output:</span>
+0022 <span class="comment">%  nX1 - DxN (e.g. 2xN) normalised coordinates of X1_</span>
+0023 <span class="comment">%  nX2 - DxN (e.g. 2xN) normalised coordinates of X2_</span>
+0024 <span class="comment">%  Un  - Transform to normalised &quot;analysis&quot; space (X1)</span>
+0025 <span class="comment">%  Tn  - Transform to normalised &quot;synthesis&quot; space (X2)</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">% Input:</span>
+0028 <span class="comment">%  X1_    - DxN (2xN or 3xN) (inhomogenous) coordinates</span>
+0029 <span class="comment">%  X2_    - DxN (2xN or 3xN) (inhomogenous) coordinates</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%  nm_    - Normalization method to be used</span>
+0032 <span class="comment">%           0: No normalization</span>
+0033 <span class="comment">%           1: The one from [1] - isotropic scaling (PREFERRED for REAL data)</span>
+0034 <span class="comment">%           2: The one from [1] - non-isotropic scaling (PREFERRED for ARTIFICIAL data)</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% See also HND_CORRESP_COORDDENORM.M and H2D_CORRESP_DLT.M</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">% References:</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%  [1] Hartley, R., Zisserman, A., Multiple View Geometry in</span>
+0041 <span class="comment">%  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">% Author(s):</span>
+0044 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">% Copyright:</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0049 <span class="comment">%   Kamarainen.</span>
+0050 <span class="comment">%</span>
+0051 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">%%</span>
+0054 <a name="_sub0" href="#_subfunctions" class="code">function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)</a>
+0055 
+0056 <span class="keyword">switch</span> (nm_)
+0057  <span class="keyword">case</span> 0,
+0058   nX1 = X1_;
+0059   nX2 = X2_;
+0060   Un = eye(size(X1_,1),size(X1_,1)+1);
+0061   Tn = eye(size(X1_,1),size(X1_,1)+1);
+0062   
+0063  <span class="keyword">case</span> 1, <span class="comment">% Proposed in [1], but I do not know why (pixelwise error</span>
+0064          <span class="comment">% in x and y directions is the same?)</span>
+0065   <span class="comment">% X1 (linear transform analysis)</span>
+0066   U_t = mean(X1_,2);
+0067   U_s = diag(sqrt(2)./mean(sqrt(sum((X1_-repmat(U_t,[1 size(X1_, 2)])).^2,1))));
+0068   <span class="comment">%U_s = diag([U_s U_s]); % only for 2-D input</span>
+0069   U_s = diag(repmat(U_s,[1 size(X1_,1)]));
+0070   Un = [U_s -U_s*U_t];
+0071   nX1 = Un*[X1_; ones(1,size(X1_,2))];
+0072   
+0073   <span class="comment">% X2 (linear transform synthesis)</span>
+0074   T_t = mean(X2_,2);
+0075   T_s = diag(sqrt(2)./mean(sqrt(sum((X1_-repmat(T_t,[1 size(X1_, 2)])).^2,1))));
+0076   <span class="comment">% T_s = diag([T_s T_s]); % only for 2-D input</span>
+0077   T_s = diag(repmat(T_s,[1 size(X2_,1)]));
+0078   Tn = [T_s -T_s*T_t];
+0079   nX2 = Tn*[X2_; ones(1,size(X2_,2))];
+0080 
+0081  <span class="keyword">case</span> 2, <span class="comment">% This how it should be done according to my understanding</span>
+0082          <span class="comment">% (unitwise error in x and y directions is the same)</span>
+0083   <span class="comment">% X1 (linear transform analysis)</span>
+0084   U_t = mean(X1_,2);
+0085 
+0086   U_s = diag(1./mean(sqrt((X1_-repmat(U_t,[1 size(X1_,2)])).^2),2));
+0087   Un = [U_s -U_s*U_t];
+0088   nX1 = Un*[X1_; ones(1,size(X1_,2))];
+0089   
+0090   <span class="comment">% X2 (linear transform synthesis)</span>
+0091   T_t = mean(X2_,2);
+0092 
+0093   T_s = diag(1./mean(sqrt((X2_-repmat(T_t,[1 size(X2_,2)])).^2),2));
+0094   Tn = [T_s -T_s*T_t];
+0095   nX2 = Tn*[X2_; ones(1,size(X2_,2))];
+0096 
+0097  <span class="keyword">otherwise</span>,
+0098   error(<span class="string">'Unknown data normalisation requested!'</span>);
+0099 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

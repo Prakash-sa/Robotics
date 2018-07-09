@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of h2d_corresp_dlt</title>
+  <meta name="keywords" content="h2d_corresp_dlt">
+  <meta name="description" content="H2D_CORRESP_DLT Construct 2-D homography from point">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; h2d_corresp_dlt.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>h2d_corresp_dlt
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>H2D_CORRESP_DLT Construct 2-D homography from point</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [H] = h2d_corresp_dlt(X1_,X2_,dltType_) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">H2D_CORRESP_DLT Construct 2-D homography from point
+correspondence using Direct Linear Transform
+
+ [H] = h2d_corresp_dlt(X1_,X2_,dltType_)
+
+ Computes a direct linear transform estimate of 3x3 transform
+ transforming 2-D points X1_ to 2-D points X2_ using the point 
+ correspondence. The computation can be restricted by dltType_
+ parameter.
+
+ Note: You should normalise the coordinates X1_ and X2_ before
+ calling this function and afterwards denormalise the estimated
+ homography H.
+
+ Output:
+  H - 3x3 transform matrix
+
+ Input:
+  X1_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates
+  X2_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates
+  dltType - The construction of the DLT matrices (see [1])
+            0 Full projectivity (std. DLT - Recommended)
+            1 Subset of affinity (including isometry&amp;similarity) (DLT_r1)
+            2 Affinity (DLT_r2)
+            3 Projectivity with H(3,3) = 1 (the same as in Machine
+              vision toolbox by Peter Corke
+              (http://www.cat.csiro.au/ict/staff/pic/)) and
+              ref. [3]
+
+ Note: DLT type 3 is very similar to the pseudo inverse approach
+ from [4] (originally Abdel-Aziz and Karara (1971)), but adopted
+ from [1] and the Camera Calibration toolbox (extinit.m) provided
+ by J. Heikkila at Oulu university  (instead of the pseudo
+ inverse, pinv(), the Matlab's &quot;automatic&quot; LSQ fit is used).
+
+ See also H2D_CORRESP_COORDNORM.M
+
+ References:
+
+  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast
+  2D Homography Estimation From a Few Point Correspondence,
+  Research Report, Machine Vision and Pattern Recognition Research
+  Group, Lappeenranta University of Technology, Finland, 2008.
+
+  [2] Hartley, R., Zisserman, A., Multiple View Geometry in
+  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.
+
+  [3] Ballard, D.H., Brown, C.M., Computer Vision, (online:
+  http://homepages.inf.ed.ac.uk/rbf/BOOKS/BANDB/bandb.htm).
+
+  [4] Heikkila, J., Accurate camera calibration and feature based
+  3-D reconstruction from monocular image sequences, PhD thesis,
+  University of Oulu, 1997.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_corresp.html" class="code" title="function [H] = h2d_corresp(X1_,X2_,varargin)">h2d_corresp</a>	H2D_CORRESP Estimate 2-D homography between point correspondence</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [A] = formA(X1_, X2_)</a></li><li><a href="#_sub2" class="code">function [A,b] = formAandb_r1(X1_,X2_)</a></li><li><a href="#_sub3" class="code">function [A,b] = formAandb_r2(X1_,X2_)</a></li></ul>
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%H2D_CORRESP_DLT Construct 2-D homography from point</span>
+0002 <span class="comment">%correspondence using Direct Linear Transform</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% [H] = h2d_corresp_dlt(X1_,X2_,dltType_)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Computes a direct linear transform estimate of 3x3 transform</span>
+0007 <span class="comment">% transforming 2-D points X1_ to 2-D points X2_ using the point</span>
+0008 <span class="comment">% correspondence. The computation can be restricted by dltType_</span>
+0009 <span class="comment">% parameter.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Note: You should normalise the coordinates X1_ and X2_ before</span>
+0012 <span class="comment">% calling this function and afterwards denormalise the estimated</span>
+0013 <span class="comment">% homography H.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% Output:</span>
+0016 <span class="comment">%  H - 3x3 transform matrix</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">% Input:</span>
+0019 <span class="comment">%  X1_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates</span>
+0020 <span class="comment">%  X2_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates</span>
+0021 <span class="comment">%  dltType - The construction of the DLT matrices (see [1])</span>
+0022 <span class="comment">%            0 Full projectivity (std. DLT - Recommended)</span>
+0023 <span class="comment">%            1 Subset of affinity (including isometry&amp;similarity) (DLT_r1)</span>
+0024 <span class="comment">%            2 Affinity (DLT_r2)</span>
+0025 <span class="comment">%            3 Projectivity with H(3,3) = 1 (the same as in Machine</span>
+0026 <span class="comment">%              vision toolbox by Peter Corke</span>
+0027 <span class="comment">%              (http://www.cat.csiro.au/ict/staff/pic/)) and</span>
+0028 <span class="comment">%              ref. [3]</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% Note: DLT type 3 is very similar to the pseudo inverse approach</span>
+0031 <span class="comment">% from [4] (originally Abdel-Aziz and Karara (1971)), but adopted</span>
+0032 <span class="comment">% from [1] and the Camera Calibration toolbox (extinit.m) provided</span>
+0033 <span class="comment">% by J. Heikkila at Oulu university  (instead of the pseudo</span>
+0034 <span class="comment">% inverse, pinv(), the Matlab's &quot;automatic&quot; LSQ fit is used).</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">% See also H2D_CORRESP_COORDNORM.M</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">% References:</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast</span>
+0041 <span class="comment">%  2D Homography Estimation From a Few Point Correspondence,</span>
+0042 <span class="comment">%  Research Report, Machine Vision and Pattern Recognition Research</span>
+0043 <span class="comment">%  Group, Lappeenranta University of Technology, Finland, 2008.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">%  [2] Hartley, R., Zisserman, A., Multiple View Geometry in</span>
+0046 <span class="comment">%  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">%  [3] Ballard, D.H., Brown, C.M., Computer Vision, (online:</span>
+0049 <span class="comment">%  http://homepages.inf.ed.ac.uk/rbf/BOOKS/BANDB/bandb.htm).</span>
+0050 <span class="comment">%</span>
+0051 <span class="comment">%  [4] Heikkila, J., Accurate camera calibration and feature based</span>
+0052 <span class="comment">%  3-D reconstruction from monocular image sequences, PhD thesis,</span>
+0053 <span class="comment">%  University of Oulu, 1997.</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">% Author(s):</span>
+0056 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0057 <span class="comment">%</span>
+0058 <span class="comment">% Copyright:</span>
+0059 <span class="comment">%</span>
+0060 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0061 <span class="comment">%   Kamarainen.</span>
+0062 <span class="comment">%</span>
+0063 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0064 <span class="comment">%</span>
+0065 <a name="_sub0" href="#_subfunctions" class="code">function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)</a>
+0066 
+0067 <span class="comment">%</span>
+0068 <span class="comment">% Construct homogeneous vectors if not</span>
+0069 <span class="keyword">if</span> (size(X1_,1) == 2)
+0070   X1 = [X1_; ones(1,size(X1_,2))];
+0071 <span class="keyword">else</span>
+0072   X1 = X1_;
+0073 <span class="keyword">end</span>;
+0074 <span class="keyword">if</span> (size(X2_,1) == 2)
+0075   X2 = [X2_; ones(1,size(X2_,2))];
+0076 <span class="keyword">else</span>
+0077   X2 = X2_;
+0078 <span class="keyword">end</span>;
+0079 
+0080 <span class="keyword">switch</span> dltType_,
+0081  <span class="keyword">case</span> 0,
+0082    <span class="comment">%</span>
+0083    <span class="comment">% Construct the linear system [1]: A_i*h = b</span>
+0084    A = <a href="#_sub1" class="code" title="subfunction [A] = formA(X1_, X2_)">formA</a>(X1,X2);
+0085    
+0086    [U D V] = svd(A);
+0087    H = reshape(V(:,9), [3 3])';
+0088   
+0089  <span class="keyword">case</span> 1,
+0090    <span class="comment">%</span>
+0091    <span class="comment">% Construct the linear system [1]: A_i*h = b</span>
+0092    [A b] = <a href="#_sub2" class="code" title="subfunction [A,b] = formAandb_r1(X1_,X2_)">formAandb_r1</a>(X1,X2);
+0093    
+0094    <span class="comment">% solve A*h = b</span>
+0095    h = A\b;    <span class="comment">% least squares solution</span>
+0096    H = [h(1) -h(2) h(3);
+0097         h(2) h(1) h(4);
+0098         0 0 1];
+0099 
+0100  <span class="keyword">case</span> 2,
+0101   <span class="comment">%</span>
+0102   <span class="comment">% Construct the linear system [1]: A_i*h = b</span>
+0103   [A b] = <a href="#_sub3" class="code" title="subfunction [A,b] = formAandb_r2(X1_,X2_)">formAandb_r2</a>(X1,X2);
+0104   
+0105   <span class="comment">% solve A*h = b</span>
+0106   h = A\b;    <span class="comment">% least squares solution</span>
+0107   H = [h(1) h(2) h(3);
+0108        h(4) h(5) h(6);
+0109        0 0 1];
+0110   
+0111  <span class="keyword">case</span> 3,
+0112   <span class="comment">% Get the linear form</span>
+0113   A = <a href="#_sub1" class="code" title="subfunction [A] = formA(X1_, X2_)">formA</a>(X1, X2);
+0114   
+0115   <span class="comment">% Corresponds to fixing H(3,3)=1</span>
+0116   aa = A(:,1:8);
+0117   bb = -A(:,9);
+0118   
+0119   C = aa \ bb;    <span class="comment">% least squares solution</span>
+0120   H = reshape([C; 1]', 3, 3)';
+0121   
+0122  <span class="keyword">otherwise</span>,
+0123   error(<span class="string">'Unknown DLT type!'</span>);
+0124 <span class="keyword">end</span>;
+0125 
+0126 
+0127 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0128 
+0129 <span class="comment">%</span>
+0130 <span class="comment">% INTERNAL FUNCTIONS</span>
+0131 <span class="comment">%</span>
+0132 
+0133 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0134 
+0135 <span class="comment">%</span>
+0136 <span class="comment">% FORMA Form the std SVD matrix (2-D adaptation, see [3] for</span>
+0137 <span class="comment">% details)</span>
+0138 <span class="comment">%</span>
+0139 <a name="_sub1" href="#_subfunctions" class="code">function [A] = formA(X1_, X2_)</a>
+0140 numOfPoints = size(X1_, 2);
+0141 
+0142 <span class="comment">%</span>
+0143 <span class="comment">% Form A in [3]; Ao: odd rows Ae: even rows</span>
+0144 <span class="comment">% used by the approaches 1 and 2</span>
+0145 
+0146 Ao = [zeros(numOfPoints,3)<span class="keyword">...</span>
+0147       -(X2_(3,:).*X1_(1,:))'  <span class="keyword">...</span>
+0148       -(X2_(3,:).*X1_(2,:))'  <span class="keyword">...</span>
+0149       -(X2_(3,:).*X1_(3,:))'  <span class="keyword">...</span>
+0150        (X2_(2,:).*X1_(1,:))'  <span class="keyword">...</span>
+0151        (X2_(2,:).*X1_(2,:))'  <span class="keyword">...</span>
+0152        (X2_(2,:).*X1_(3,:))'];
+0153 
+0154 Ae = [(X2_(3,:).*X1_(1,:))'   <span class="keyword">...</span>
+0155       (X2_(3,:).*X1_(2,:))'   <span class="keyword">...</span>
+0156       (X2_(3,:).*X1_(3,:))'   <span class="keyword">...</span>
+0157       zeros(numOfPoints,3)    <span class="keyword">...</span>
+0158      -(X2_(1,:).*X1_(1,:))'   <span class="keyword">...</span>
+0159      -(X2_(1,:).*X1_(2,:))'  <span class="keyword">...</span>
+0160      -(X2_(1,:).*X1_(3,:))'];
+0161 
+0162 <span class="comment">% Form the true A</span>
+0163 A = transpose(reshape(transpose([Ao Ae]), [9 2*numOfPoints]));
+0164 
+0165 
+0166 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0167 
+0168 <span class="comment">%</span>
+0169 <span class="comment">% FORMAANDB R1 Form the linear system A_i*h=b matrix (see [1] or</span>
+0170 <span class="comment">% [2] for details)</span>
+0171 <span class="comment">%</span>
+0172 <a name="_sub2" href="#_subfunctions" class="code">function [A,b] = formAandb_r1(X1_,X2_)</a>
+0173 numOfPoints = size(X1_,2);
+0174 
+0175 <span class="comment">%</span>
+0176 <span class="comment">% Form A in [1,2] - Ao: odd rows Ae: even rows</span>
+0177 
+0178 <span class="comment">% First 2 columns of Ao</span>
+0179 Ao = [-(X2_(3,:).*X1_(2,:))'  <span class="keyword">...</span>
+0180       -(X2_(3,:).*X1_(1,:))'  <span class="keyword">...</span>
+0181       zeros(numOfPoints,1) <span class="keyword">...</span>
+0182       -(X2_(3,:).*X1_(3,:))'];
+0183 Ae = [(X2_(3,:).*X1_(1,:))'   <span class="keyword">...</span>
+0184       -(X2_(3,:).*X1_(2,:))'  <span class="keyword">...</span>
+0185       (X2_(3,:).*X1_(3,:))'    <span class="keyword">...</span>
+0186       zeros(numOfPoints,1)];
+0187 
+0188 <span class="comment">% Form the true A</span>
+0189 A = transpose(reshape(transpose([Ao Ae]), [4 2*numOfPoints]));
+0190 
+0191 <span class="comment">%</span>
+0192 <span class="comment">% Form b in [1,2] - bo: odd rows be: even rows</span>
+0193 bo = [-(X2_(2,:).*X1_(3,:))'];
+0194 be = [(X2_(1,:).*X1_(3,:))'];
+0195 
+0196 <span class="comment">% Form the true b</span>
+0197 b = transpose(reshape(transpose([bo be]), [1 2*numOfPoints]));
+0198 
+0199 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0200 
+0201 <span class="comment">%</span>
+0202 <span class="comment">% FORMAANDB R2 Form the linear system A_i*h=b matrix (see [1] or</span>
+0203 <span class="comment">% [2] for details)</span>
+0204 <span class="comment">%</span>
+0205 <a name="_sub3" href="#_subfunctions" class="code">function [A,b] = formAandb_r2(X1_,X2_)</a>
+0206 numOfPoints = size(X1_,2);
+0207 
+0208 <span class="comment">%</span>
+0209 <span class="comment">% Form A in [1,2] - Ao: odd rows Ae: even rows</span>
+0210 
+0211 Ao = [zeros(numOfPoints,3)<span class="keyword">...</span>
+0212       -(X2_(3,:).*X1_(1,:))'  <span class="keyword">...</span>
+0213       -(X2_(3,:).*X1_(2,:))'  <span class="keyword">...</span>
+0214       -(X2_(3,:).*X1_(3,:))'];
+0215 
+0216 Ae = [(X2_(3,:).*X1_(1,:))'   <span class="keyword">...</span>
+0217       (X2_(3,:).*X1_(2,:))'  <span class="keyword">...</span>
+0218       (X2_(3,:).*X1_(3,:))'    <span class="keyword">...</span>
+0219       zeros(numOfPoints,3)];
+0220 
+0221 <span class="comment">% Form the true A</span>
+0222 A = transpose(reshape(transpose([Ao Ae]), [6 2*numOfPoints]));
+0223 
+0224 <span class="comment">%</span>
+0225 <span class="comment">% Form b in [1,2] - bo: odd rows be: even rows</span>
+0226 bo = [-(X2_(2,:).*X1_(3,:))'];
+0227 be = [(X2_(1,:).*X1_(3,:))'];
+0228 
+0229 <span class="comment">% Form the true b</span>
+0230 b = transpose(reshape(transpose([bo be]), [1 2*numOfPoints]));</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

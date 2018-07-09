@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of Contents</title>
+  <meta name="keywords" content="Contents">
+  <meta name="description" content="HomoGr Toolbox - Homography estimation">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; Contents.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>Contents
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>HomoGr Toolbox - Homography estimation</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> HomoGr Toolbox - Homography estimation
+ Version 0.1
+
+ Main interface
+   h2d_corresp         - Estimate 2-D homography between point
+                         correspondence 
+
+ Parameterised transforms
+   h2d_iso             - Construct 2-D homography matrix
+                         restricted to (orientation preserving)
+                         isometry transformation 
+   h2d_sim             - Construct 2-D homography matrix
+                         restricted to (orientation preserving)
+                         similarity transformation 
+   h2d_aff             - Construct 2-D homography matrix
+                         restricted to affinity transformation
+   h2d_prj             - Construct 2-D homography matrix
+                         (projectivity) 
+   h2d_trans           - 2-D homography transformation
+
+ Implemented estimation methods (called from main interface)
+   h2d_corresp_exiso   - Exact 2-D homography (isometry) from
+                         point correspondence
+   h2d_corresp_exsim   - Exact 2-D homography (similarity) from
+                         point correspondence
+   h2d_corresp_exaff   - Exact 2-D homography (affinity) from
+                         point correspondence
+   h2d_corresp_ransam  - Exact 2-D homography (any) from point 
+                         correspondence (best transformation
+                         selected by random sampling) 
+   hnd_corresp_umeyama - Estimate similarity transform in n-D
+   h2d_corresp_dlt     - Construct 2-D homography from point
+                         correspondence using Direct Linear
+                         Transform 
+
+ Supporting functions for the estimation methods
+   h2d_corresp_isvalid     - Checks if the given point set is
+                             valid for estimating the specific
+                             homography
+   hnd_corresp_coorddenorm - Denormalise the transformation
+                             estimated using normalised
+                             coordinates
+   hnd_corresp_coordnorm   - Normalise coordinates
+
+ General functions
+   h2d_version             - Return version string.
+   getargs                 - Parse variable argument list into a struct.
+
+ Demos
+   h2d_demo01              - A simple homography demo
+
+ References:
+    See the function helps for references
+
+ Authors:
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Acknowledgements:
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   The software package is free software; you can redistribute it
+   and/or modify it under terms of GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the license, or any later version. For more details see licenses
+   at http://www.gnu.org
+
+   The software package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+   See the GNU General Public License for more details.
+
+   As stated in the GNU General Public License it is not possible to
+   include this software library or even parts of it in a proprietary
+   program without written permission from the owners of the copyright.
+   If you wish to obtain such permission, you can reach us by mail:
+
+      Department of Information Processing
+      Lappeenranta University of Technology
+      P.O. Box 20 FIN-53851 Lappeenranta
+      FINLAND
+
+  and by e-mail:
+      
+      joni.kamarainen@lut.fi
+
+  Please, if you find any bugs contact authors.
+
+  Project home page: http://www.it.lut.fi/project/homogr/
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:14 $</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

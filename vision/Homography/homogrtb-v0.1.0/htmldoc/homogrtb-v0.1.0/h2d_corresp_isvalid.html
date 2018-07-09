@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of h2d_corresp_isvalid</title>
+  <meta name="keywords" content="h2d_corresp_isvalid">
+  <meta name="description" content="H2D_CORRESP_ISVALID Checks if the given point set is valid">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; h2d_corresp_isvalid.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>h2d_corresp_isvalid
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>H2D_CORRESP_ISVALID Checks if the given point set is valid</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [v] = h2d_corresp_isvalid(X1_,X2_,h_) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">H2D_CORRESP_ISVALID Checks if the given point set is valid
+for estimating the specific homography
+
+ [v] = h2d_corresp_isvalid(X1_,X2_,h_,:)
+
+ Returns v == 1 if the point configurations in X1 and X2 are valid
+ for estimating the homography type h_.
+
+ NOTE: This functions is _experimental_ and mainly needed by
+ H2D_CORRESP_RANSAM.M since it would collapse if the underlying
+ exact method collapses. It would be wise to explore [2] and
+ implement this function using some decent theory - now it can be
+ used only to check point configuration before any exact
+ estimation method!
+
+ NOTE: Can be extended to cover arbitratry many points, but that
+ may take a lot of time (all combinations must be checked)!!
+
+ Output:
+  v - 1x1 1 if valid, 0 if not
+
+ Input:
+  X1_    - 2xN coordinates
+  X2_    - 2xN coordinates
+  ht_    - Homography type
+    1   : isometry
+    2   : similarity
+    2.5 : similarity+
+           varargin(1) : scale angle alpha [1]
+           varargin(2) : estimation direction (1: from model, 2:to
+                         model) [1]
+
+ See also HOMOGR_2D_CORRESP_EXACT_*.M
+
+ References:
+
+  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast
+  2D Homography Estimation From a Few Point Correspondence,
+  Research Report, Machine Vision and Pattern Recognition Research
+  Group, Lappeenranta University of Technology, Finland, 2008.
+
+  [2] Hartley, R., Zisserman, A., Multiple View Geometry in
+  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $
+
+%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_corresp_ransam.html" class="code" title="function [bestH bestXt bestParams] = h2d_corresp_ransam(X1_,X2_,tType_,iNum_,bestUsed_,varargin)">h2d_corresp_ransam</a>	H2D_CORRESP_RANSAM Exact 2-D homography (any) from point</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%H2D_CORRESP_ISVALID Checks if the given point set is valid</span>
+0002 <span class="comment">%for estimating the specific homography</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% [v] = h2d_corresp_isvalid(X1_,X2_,h_,:)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Returns v == 1 if the point configurations in X1 and X2 are valid</span>
+0007 <span class="comment">% for estimating the homography type h_.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% NOTE: This functions is _experimental_ and mainly needed by</span>
+0010 <span class="comment">% H2D_CORRESP_RANSAM.M since it would collapse if the underlying</span>
+0011 <span class="comment">% exact method collapses. It would be wise to explore [2] and</span>
+0012 <span class="comment">% implement this function using some decent theory - now it can be</span>
+0013 <span class="comment">% used only to check point configuration before any exact</span>
+0014 <span class="comment">% estimation method!</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">% NOTE: Can be extended to cover arbitratry many points, but that</span>
+0017 <span class="comment">% may take a lot of time (all combinations must be checked)!!</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% Output:</span>
+0020 <span class="comment">%  v - 1x1 1 if valid, 0 if not</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">% Input:</span>
+0023 <span class="comment">%  X1_    - 2xN coordinates</span>
+0024 <span class="comment">%  X2_    - 2xN coordinates</span>
+0025 <span class="comment">%  ht_    - Homography type</span>
+0026 <span class="comment">%    1   : isometry</span>
+0027 <span class="comment">%    2   : similarity</span>
+0028 <span class="comment">%    2.5 : similarity+</span>
+0029 <span class="comment">%           varargin(1) : scale angle alpha [1]</span>
+0030 <span class="comment">%           varargin(2) : estimation direction (1: from model, 2:to</span>
+0031 <span class="comment">%                         model) [1]</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% See also HOMOGR_2D_CORRESP_EXACT_*.M</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">% References:</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">%  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast</span>
+0038 <span class="comment">%  2D Homography Estimation From a Few Point Correspondence,</span>
+0039 <span class="comment">%  Research Report, Machine Vision and Pattern Recognition Research</span>
+0040 <span class="comment">%  Group, Lappeenranta University of Technology, Finland, 2008.</span>
+0041 <span class="comment">%</span>
+0042 <span class="comment">%  [2] Hartley, R., Zisserman, A., Multiple View Geometry in</span>
+0043 <span class="comment">%  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% Author(s):</span>
+0046 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">% Copyright:</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0051 <span class="comment">%   Kamarainen.</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">%%</span>
+0056 <a name="_sub0" href="#_subfunctions" class="code">function [v] = h2d_corresp_isvalid(X1_,X2_,h_)</a>
+0057 
+0058 v = 1;
+0059 numTol = 10^3*eps; <span class="comment">% Numerical stability tolerance</span>
+0060 
+0061 <span class="comment">% Set min required number of points</span>
+0062 <span class="keyword">switch</span> h_
+0063  <span class="keyword">case</span> 0,
+0064   minPoints = 0;
+0065  <span class="keyword">case</span> 1,
+0066   minPoints = 2;
+0067  <span class="keyword">case</span> 2,
+0068   minPoints = 2;
+0069  <span class="keyword">case</span> 2.5,
+0070   minPoints = 3;
+0071  <span class="keyword">otherwise</span>,
+0072   error([<span class="string">'Unknown homography type h_='</span> num2str(h_)]);
+0073 <span class="keyword">end</span>;
+0074 
+0075 <span class="comment">%</span>
+0076 <span class="comment">% All homographies - general restriction on numerical stability</span>
+0077 <span class="keyword">if</span> (h_ &gt;= 0)
+0078   <span class="comment">% No estimation is numerically stable if all points are too close</span>
+0079   <span class="comment">% to each other (practically no transformation needed at all)</span>
+0080   <span class="keyword">if</span> (max(sum((X1_-X2_).^2,1)) &lt; numTol) 
+0081     v = 0;
+0082   <span class="keyword">end</span>;
+0083 <span class="keyword">end</span>;
+0084   
+0085 <span class="comment">%</span>
+0086 <span class="comment">% Isometry and above</span>
+0087 <span class="keyword">if</span> (h_ &gt;= 1)
+0088   <span class="comment">% Case 1</span>
+0089   <span class="comment">% Some estimation point pair in either set are the same points</span>
+0090   <span class="comment">% nchoosek(minPoints,2) diff combinations</span>
+0091   <span class="keyword">for</span> pivotInd = 1:minPoints-1
+0092     <span class="keyword">for</span> pointInd = pivotInd+1:minPoints
+0093       <span class="keyword">if</span> ((sum((X1_(:,pivotInd)-X1_(:,pointInd)).^2,1) &lt; numTol) |<span class="keyword">...</span>
+0094           (sum((X1_(:,pivotInd)-X1_(:,pointInd)).^2,1) &lt; numTol))
+0095         v = 0;
+0096       <span class="keyword">end</span>;
+0097     <span class="keyword">end</span>;
+0098   <span class="keyword">end</span>;
+0099 <span class="keyword">end</span>;
+0100 
+0101 <span class="comment">%</span>
+0102 <span class="comment">% Isometry and similarity have the same restrictions</span>
+0103 
+0104 <span class="comment">%</span>
+0105 <span class="comment">% Similarity+ and above</span>
+0106 <span class="keyword">if</span> (h_ &gt;= 2.5)
+0107   <span class="comment">% Case 2</span>
+0108   <span class="comment">% Some 3 points lay on the same line</span>
+0109   <span class="comment">% nchoosek(minPoints,3) diff combinations (includes Case 1)</span>
+0110   <span class="keyword">for</span> pivotInd = 1:minPoints-2
+0111     <span class="keyword">for</span> pivotInd2 = pivotInd+1:minPoints-1
+0112       pivotLine = cross([X1_(:,pivotInd); 1],[X1_(:,pivotInd2); 1]);
+0113       <span class="keyword">for</span> poinInd = pivotInd2+1:minPoints
+0114         <span class="keyword">if</span> (([X1_(:,pointInd)' 1]*pivotLine)^2 &lt; numTol)
+0115           v = 0;
+0116         <span class="keyword">end</span>;
+0117       <span class="keyword">end</span>;
+0118     <span class="keyword">end</span>;
+0119   <span class="keyword">end</span>;
+0120 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

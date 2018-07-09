@@ -1,0 +1,6 @@
+choose_solution	choose_solution.m	/^function thetas = choose_solution(allSolutions, thetasnow)$/;"	f
+get_poc	get_poc.m	/^function [duration, x, y, z, phi, theta, psi, r, g, b] = get_poc(t)$/;"	f
+linear_trajectory	linear_trajectory.m	/^function vals = linear_trajectory(t, tvia1, tvia2, valsvia1, valsvia2)$/;"	f
+plot_puma	plot_puma.m	/^function hout = plot_puma(x, y, z, phi, theta, psi, theta1, theta2, theta3, theta4, theta5, theta6, redValue, greenValue, blueValue, hin)$/;"	f
+puma_ik	puma_ik.m	/^function [ ik_sol ] = puma_ik( x, y, z, R )$/;"	f
+eulerrotation	puma_paint.m	/^function R = eulerrotation(phi, theta, psi)$/;"	f

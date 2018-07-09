@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of h2d_pro</title>
+  <meta name="keywords" content="h2d_pro">
+  <meta name="description" content="H2D_PRO Construct 2-D homography matrix (projectivity)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; h2d_pro.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>h2d_pro
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>H2D_PRO Construct 2-D homography matrix (projectivity)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [H] = h2d_pro(theta_,t_,delta1_,delta2_,phi_,v1_,v2_,v_); </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">H2D_PRO Construct 2-D homography matrix (projectivity)
+
+ [H] = h2d_pro(theta_,t_,delta1_,delta2_,phi_,v1_,v2_,v)
+
+ Output:
+   H - 3x3 matrix of projective transformation
+
+ Input:
+  Transformation parameters (according to refs. [1-2]):
+   theta - 1x1 Rotation angle, in degrees
+       t - 2x1 Translation vector [tx ty]
+  delta1 - 1x1 scale to direction 1 (phi)
+  delta2 - 1x1 scale to direction 2 (phi+90)
+     phi - 1x1 scale angle, in degrees
+     v1  - &quot;Elation&quot; parameter 1 (X) [2]
+     v2  - &quot;Elation&quot; parameter 2 (Y) [2]
+     v   - &quot;Elation&quot; parameter 3 (Z) [2]
+
+ See also
+
+ References:
+
+  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast
+  2D Homography Estimation From a Few Point Correspondence,
+  Research Report, Machine Vision and Pattern Recognition Research
+  Group, Lappeenranta University of Technology, Finland, 2008.
+
+  [2] Hartley, R., Zisserman, A., Multiple View Geometry in
+  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $
+
+%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%H2D_PRO Construct 2-D homography matrix (projectivity)</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% [H] = h2d_pro(theta_,t_,delta1_,delta2_,phi_,v1_,v2_,v)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% Output:</span>
+0006 <span class="comment">%   H - 3x3 matrix of projective transformation</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% Input:</span>
+0009 <span class="comment">%  Transformation parameters (according to refs. [1-2]):</span>
+0010 <span class="comment">%   theta - 1x1 Rotation angle, in degrees</span>
+0011 <span class="comment">%       t - 2x1 Translation vector [tx ty]</span>
+0012 <span class="comment">%  delta1 - 1x1 scale to direction 1 (phi)</span>
+0013 <span class="comment">%  delta2 - 1x1 scale to direction 2 (phi+90)</span>
+0014 <span class="comment">%     phi - 1x1 scale angle, in degrees</span>
+0015 <span class="comment">%     v1  - &quot;Elation&quot; parameter 1 (X) [2]</span>
+0016 <span class="comment">%     v2  - &quot;Elation&quot; parameter 2 (Y) [2]</span>
+0017 <span class="comment">%     v   - &quot;Elation&quot; parameter 3 (Z) [2]</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% See also</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% References:</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast</span>
+0024 <span class="comment">%  2D Homography Estimation From a Few Point Correspondence,</span>
+0025 <span class="comment">%  Research Report, Machine Vision and Pattern Recognition Research</span>
+0026 <span class="comment">%  Group, Lappeenranta University of Technology, Finland, 2008.</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%  [2] Hartley, R., Zisserman, A., Multiple View Geometry in</span>
+0029 <span class="comment">%  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">% Author(s):</span>
+0032 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">% Copyright:</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0037 <span class="comment">%   Kamarainen.</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%%</span>
+0042 <a name="_sub0" href="#_subfunctions" class="code">function [H] = h2d_pro(theta_,t_,delta1_,delta2_,phi_,v1_,v2_,v_);</a>
+0043 
+0044 <span class="comment">% Convert to radians</span>
+0045 theta = theta_*pi/180;
+0046 phi = phi_*pi/180;
+0047 
+0048 <span class="comment">% Rotation matrix</span>
+0049 R = [cos(theta) -sin(theta); sin(theta) cos(theta)];
+0050 t = [t_(1) t_(2)]';
+0051 
+0052 D = [delta1_ 0; 0 delta2_];
+0053 Rphi = [cos(phi) -sin(phi); sin(phi) cos(phi)];
+0054 
+0055 <span class="comment">% Final results composed of isometry part and</span>
+0056 <span class="comment">% non-isotropic scaling part</span>
+0057 A = R * Rphi' * D * Rphi;
+0058 H = [[A; v1_ v2_] [t; v_]];</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

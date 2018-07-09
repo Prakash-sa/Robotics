@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of h2d_corresp_exiso</title>
+  <meta name="keywords" content="h2d_corresp_exiso">
+  <meta name="description" content="H2D_CORRESP_EXISO Exact 2-D homography (isometry) from point">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; h2d_corresp_exiso.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>h2d_corresp_exiso
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>H2D_CORRESP_EXISO Exact 2-D homography (isometry) from point</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [H,theta,tx,ty] = h2d_corresp_exiso(X1_,X2_) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">H2D_CORRESP_EXISO Exact 2-D homography (isometry) from point
+correspondence
+
+ [H,theta,tx,ty] = h2d_corresp_exiso(X1_,X2_)
+
+ Computes the exact 3x3 ISOMETRY transformation of 2-D points X1_
+ to 2-D points X2_ in homogenous coordinates. The recovered
+ transformation parameters, rotation angle theta and translations
+ tx and ty are also computed.
+
+ Output:
+  H     - 3x3 transform matrix
+  theta - rotation angle
+  tx    - translation X
+  ty    - translation Y
+
+ Input:
+  X1_    - 3xN coordinates (NOTE: Only the first 2 out of N are used)
+  X2_    - 3xN coordinates (NOTE: Only the first 2 out of N are used)
+
+ See also <a href="h2d_corresp.html" class="code" title="function [H] = h2d_corresp(X1_,X2_,varargin)">H2D_CORRESP</a>.M
+
+ References:
+
+  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast
+  2D Homography Estimation From a Few Point Correspondence,
+  Research Report, Machine Vision and Pattern Recognition Research
+  Group, Lappeenranta University of Technology, Finland, 2008.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_corresp.html" class="code" title="function [H] = h2d_corresp(X1_,X2_,varargin)">h2d_corresp</a>	H2D_CORRESP Estimate 2-D homography between point correspondence</li><li><a href="h2d_corresp_ransam.html" class="code" title="function [bestH bestXt bestParams] = h2d_corresp_ransam(X1_,X2_,tType_,iNum_,bestUsed_,varargin)">h2d_corresp_ransam</a>	H2D_CORRESP_RANSAM Exact 2-D homography (any) from point</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%H2D_CORRESP_EXISO Exact 2-D homography (isometry) from point</span>
+0002 <span class="comment">%correspondence</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% [H,theta,tx,ty] = h2d_corresp_exiso(X1_,X2_)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Computes the exact 3x3 ISOMETRY transformation of 2-D points X1_</span>
+0007 <span class="comment">% to 2-D points X2_ in homogenous coordinates. The recovered</span>
+0008 <span class="comment">% transformation parameters, rotation angle theta and translations</span>
+0009 <span class="comment">% tx and ty are also computed.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% Output:</span>
+0012 <span class="comment">%  H     - 3x3 transform matrix</span>
+0013 <span class="comment">%  theta - rotation angle</span>
+0014 <span class="comment">%  tx    - translation X</span>
+0015 <span class="comment">%  ty    - translation Y</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% Input:</span>
+0018 <span class="comment">%  X1_    - 3xN coordinates (NOTE: Only the first 2 out of N are used)</span>
+0019 <span class="comment">%  X2_    - 3xN coordinates (NOTE: Only the first 2 out of N are used)</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">% See also H2D_CORRESP.M</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% References:</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast</span>
+0026 <span class="comment">%  2D Homography Estimation From a Few Point Correspondence,</span>
+0027 <span class="comment">%  Research Report, Machine Vision and Pattern Recognition Research</span>
+0028 <span class="comment">%  Group, Lappeenranta University of Technology, Finland, 2008.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% Author(s):</span>
+0031 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% Copyright:</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0036 <span class="comment">%   Kamarainen.</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%</span>
+0041 <a name="_sub0" href="#_subfunctions" class="code">function [H,theta,tx,ty] = h2d_corresp_exiso(X1_,X2_)</a>
+0042 
+0043 <span class="comment">% Select the first two points from the both sets</span>
+0044 x  = X1_(1:2,1:2); <span class="comment">% origpt</span>
+0045 xp = X2_(1:2,1:2); <span class="comment">% transpt</span>
+0046 
+0047 <span class="comment">% Homographic coordinates (saves also original values)</span>
+0048 x_h = X1_(:,1:2);<span class="comment">%[x; ones(1,size(x,2))]; % itr</span>
+0049 xp_h = X2_(:,1:2);<span class="comment">%[xp; ones(1,size(xp,2))]; % ttr</span>
+0050 
+0051 <span class="comment">% Take second points at pivot reset coodinates</span>
+0052 x_2 = x(:,2) - x(:,1); <span class="comment">% p1</span>
+0053 r = sqrt(sum(x_2.^2)); <span class="comment">% r1</span>
+0054 xp_2 = xp(:,2) - xp(:,1); <span class="comment">%p2</span>
+0055 rp = sqrt(sum(xp_2.^2)); <span class="comment">% r2</span>
+0056 
+0057 <span class="comment">% Translation matrix for reseting pivot</span>
+0058 A_o = [ 1 0 -x_h(1,1); 0 1 -x_h(2,1); 0 0 1 ]; <span class="comment">% invA</span>
+0059 
+0060 <span class="comment">% Rotation matrix for rotating points</span>
+0061 R_thetahat = [ xp_2(1)  xp_2(2);<span class="keyword">...</span>
+0062                xp_2(2) -xp_2(1) ] * <span class="keyword">...</span>
+0063     [ x_2(1)  x_2(2); <span class="keyword">...</span>
+0064       x_2(2) -x_2(1) ] ./ <span class="keyword">...</span>
+0065     ( r * rp );
+0066 <span class="comment">%R = [ p2(1) p2(2); p2(2) -p2(1) ] * ...</span>
+0067 <span class="comment">%    [ p1(1) p1(2); p1(2) -p1(1) ] ./ ...</span>
+0068 <span class="comment">%    ( r1 * r2 );</span>
+0069 
+0070 <span class="comment">% saturate numerical inaccuracies</span>
+0071 R_thetahat = max(min(R_thetahat, 1), -1);
+0072 
+0073 <span class="comment">% Translation of pivot to pivot location B</span>
+0074 A_B = [ 1 0 xp_h(1,1); 0 1 xp_h(2,1); 0 0 1 ]; <span class="comment">% Ap</span>
+0075 
+0076 <span class="comment">% Complete isometry transformation</span>
+0077 H = A_B*[R_thetahat [0; 0]; 0 0 1]*A_o;
+0078 <span class="comment">%T =  Ap * S * [ R [0; 0]; 0 0 1 ] * invA;</span>
+0079 
+0080 <span class="comment">% Resolve parameters (cos tells true value and sin tells the sign)</span>
+0081 <span class="comment">%theta = 180*asin(R_thetahat(2,1))/pi;</span>
+0082 theta = sign(R_thetahat(2,1))*180*acos(R_thetahat(1,1))/pi;
+0083 tx = H(1,3);
+0084 ty = H(2,3);</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

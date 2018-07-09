@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of hnd_corresp_umeyama</title>
+  <meta name="keywords" content="hnd_corresp_umeyama">
+  <meta name="description" content="HOMOGR_ND_CORRESP_UMEYAMA Estimate similarity transform in n-D">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; hnd_corresp_umeyama.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>hnd_corresp_umeyama
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>HOMOGR_ND_CORRESP_UMEYAMA Estimate similarity transform in n-D</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [H, varargout] = hnd_corresp_umeyama(X1_, X2_, scale_) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">HOMOGR_ND_CORRESP_UMEYAMA Estimate similarity transform in n-D
+
+ [H t rot s] = homogr_nd_corresp_umeyama(X1_, X2_, scale_)
+
+ Computes an estimate of a similarity transform between given
+ point correspondences in D-dimensional Euclidean space, minimizing
+ geometric forward projection error.
+
+ Output:
+  H   - D+1 x D+1 transform matrix
+  t   - translation vector (optional)
+  rot - rotation matrix (optional)
+  s   - scale (optional)
+
+ Input:
+  X1_    - DxN inhomogeneous coordinates
+  X2_    - DxN inhomogeneous coordinates
+  scale_ - scalar, forced scale of the transformation.
+
+ Use 0 as scale_ to let the Umeyama method estimate the scale in the
+ transformation. Any other value forces the scale factor to be the given
+ value. To estimate on isometry, use scale_ = 1.
+
+ References:
+
+ [1] Shinji Umeyama. Least-Squares Estimation of Transformation Parameters
+     Between Two Point Patterns. PAMI, vol. 13, no. 4, April 1991.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+    Pekka Paalanen &lt;Pekka.Paalanen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $
+
+%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_corresp.html" class="code" title="function [H] = h2d_corresp(X1_,X2_,varargin)">h2d_corresp</a>	H2D_CORRESP Estimate 2-D homography between point correspondence</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%HOMOGR_ND_CORRESP_UMEYAMA Estimate similarity transform in n-D</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% [H t rot s] = homogr_nd_corresp_umeyama(X1_, X2_, scale_)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% Computes an estimate of a similarity transform between given</span>
+0006 <span class="comment">% point correspondences in D-dimensional Euclidean space, minimizing</span>
+0007 <span class="comment">% geometric forward projection error.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Output:</span>
+0010 <span class="comment">%  H   - D+1 x D+1 transform matrix</span>
+0011 <span class="comment">%  t   - translation vector (optional)</span>
+0012 <span class="comment">%  rot - rotation matrix (optional)</span>
+0013 <span class="comment">%  s   - scale (optional)</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% Input:</span>
+0016 <span class="comment">%  X1_    - DxN inhomogeneous coordinates</span>
+0017 <span class="comment">%  X2_    - DxN inhomogeneous coordinates</span>
+0018 <span class="comment">%  scale_ - scalar, forced scale of the transformation.</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">% Use 0 as scale_ to let the Umeyama method estimate the scale in the</span>
+0021 <span class="comment">% transformation. Any other value forces the scale factor to be the given</span>
+0022 <span class="comment">% value. To estimate on isometry, use scale_ = 1.</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">% References:</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">% [1] Shinji Umeyama. Least-Squares Estimation of Transformation Parameters</span>
+0027 <span class="comment">%     Between Two Point Patterns. PAMI, vol. 13, no. 4, April 1991.</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% Author(s):</span>
+0030 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0031 <span class="comment">%    Pekka Paalanen &lt;Pekka.Paalanen@lut.fi&gt;</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">% Copyright:</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0036 <span class="comment">%   Kamarainen.</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%%</span>
+0041 <a name="_sub0" href="#_subfunctions" class="code">function [H, varargout] = hnd_corresp_umeyama(X1_, X2_, scale_)</a>
+0042 
+0043 [Dim N] = size(X1_);
+0044 
+0045 mu1 = mean(X1_, 2);
+0046 mu2 = mean(X2_, 2);
+0047 
+0048 <span class="comment">% covariance</span>
+0049 C1 = X1_ - repmat(mu1, 1, N);
+0050 C2 = X2_ - repmat(mu2, 1, N);
+0051 Sigma = 1/N * (C2 * C1');
+0052 
+0053 [U D V] = svd(Sigma);
+0054 S = eye(Dim);
+0055 
+0056 detprod = det(U) * det(V);
+0057 <span class="keyword">if</span> detprod &lt; 0
+0058     S(Dim,Dim) = -1;
+0059 <span class="keyword">end</span>
+0060 
+0061 <span class="comment">% rotation matrix</span>
+0062 R = U * S * V';
+0063 
+0064 <span class="comment">% scale</span>
+0065 <span class="keyword">if</span> scale_ == 0
+0066     s = N / sum(C1(:).^2) * trace(D*S);
+0067 <span class="keyword">else</span>
+0068     s = scale_;
+0069 <span class="keyword">end</span>
+0070 
+0071 <span class="comment">% translation</span>
+0072 t = mu2 - s * R * mu1;
+0073 
+0074 <span class="comment">% transformation matrix</span>
+0075 H = [ [s*R; zeros(1,Dim)] [t; 1] ];
+0076 
+0077 outr = { t, R, s };
+0078 <span class="keyword">for</span> i = 1:length(outr)
+0079     <span class="keyword">if</span> nargout &gt; i+1
+0080         varargout{i} = outr{i};
+0081     <span class="keyword">end</span>
+0082 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

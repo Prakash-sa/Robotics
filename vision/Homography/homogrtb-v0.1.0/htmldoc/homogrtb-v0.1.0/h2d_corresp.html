@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of h2d_corresp</title>
+  <meta name="keywords" content="h2d_corresp">
+  <meta name="description" content="H2D_CORRESP Estimate 2-D homography between point correspondence">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; h2d_corresp.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>h2d_corresp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>H2D_CORRESP Estimate 2-D homography between point correspondence</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [H] = h2d_corresp(X1_,X2_,varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">H2D_CORRESP Estimate 2-D homography between point correspondence
+
+ [H] = h2d_corresp(X1_,X2_,:)
+
+ Computes an estimate of 3x3 geometric transformation (homography)
+ from 2-D points X1_ to 2-D points X2_ .
+
+
+ Output:
+  H - 3x3 transform matrix
+
+ Input:
+  X1_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates
+  X2_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates
+
+  &lt;optional&gt;
+ 'hType'     - Homography type (see [1] or [2]):
+               'projectivity' (DEFAULT)
+               'affinity'
+               'similarity'
+               'isometry'
+
+ 'estMethod' - Related to the selected homography (different
+               options given in the order of preference, see [1])
+               hType = 'projectivity':
+                 'dlt' (DEFAULT) / 'dlt_r3'
+               hType = 'affinity'
+                 'dlt_r2' (DEFAULT)/ 'ransam_affinity' /
+                 'exact_affinity'
+               hType = 'similarity'
+                 'umeyama' (DEFAULT)/ 'ransam_similarity' /
+                 'exact_similarity' / 'dlt_r1' (not recommended
+                 since strict similarity not proven)
+               hType = 'isometry'
+                 'umeyama-iso' (DEFAULT) / 'ransam_isometry' /
+                 'exact_isometry'
+
+               NOTE: Different estimation methods (especially
+               'ransam_*' may require further parameters and these
+               are passed to the functions as:
+                 'ransam_iters' (DEFAULT = 100)
+                 'dlt_normMeth' (DEFAULT = 1) 
+ See also
+
+ References:
+
+  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast
+  2D Homography Estimation From a Few Point Correspondence,
+  Research Report, Machine Vision and Pattern Recognition Research
+  Group, Lappeenranta University of Technology, Finland, 2008.
+
+  [2] Hartley, R., Zisserman, A., Multiple View Geometry in
+  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $
+%</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="getargs.html" class="code" title="function S = getargs(defaultS, varglist);">getargs</a>	GETARGS  parse variable argument list into a struct</li><li><a href="h2d_corresp_dlt.html" class="code" title="function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)">h2d_corresp_dlt</a>	H2D_CORRESP_DLT Construct 2-D homography from point</li><li><a href="h2d_corresp_exaff.html" class="code" title="function [H, theta, tx, ty, delta1, delta2, phi] =h2d_corresp_exaff(X1_,X2_)">h2d_corresp_exaff</a>	H2D_CORRESP_EXAFF Exact 2-D homography (affinity) from point</li><li><a href="h2d_corresp_exiso.html" class="code" title="function [H,theta,tx,ty] = h2d_corresp_exiso(X1_,X2_)">h2d_corresp_exiso</a>	H2D_CORRESP_EXISO Exact 2-D homography (isometry) from point</li><li><a href="h2d_corresp_exsim.html" class="code" title="function [H,theta,tx,ty,s] = h2d_corresp_exsim(X1_,X2_)">h2d_corresp_exsim</a>	H2D_CORRESP_EXSIM Exact 2-D homography (similarity) from point</li><li><a href="h2d_corresp_ransam.html" class="code" title="function [bestH bestXt bestParams] = h2d_corresp_ransam(X1_,X2_,tType_,iNum_,bestUsed_,varargin)">h2d_corresp_ransam</a>	H2D_CORRESP_RANSAM Exact 2-D homography (any) from point</li><li><a href="hnd_corresp_coorddenorm.html" class="code" title="function [H] = hnd_corresp_coorddenorm(nH_, Un_, Tn_)">hnd_corresp_coorddenorm</a>	HND_CORRESP_COORDDENORM Denormalise the transformation estimated</li><li><a href="hnd_corresp_coordnorm.html" class="code" title="function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)">hnd_corresp_coordnorm</a>	HND_CORRESP_COORDNORM Normalise coordinates</li><li><a href="hnd_corresp_umeyama.html" class="code" title="function [H, varargout] = hnd_corresp_umeyama(X1_, X2_, scale_)">hnd_corresp_umeyama</a>	HOMOGR_ND_CORRESP_UMEYAMA Estimate similarity transform in n-D</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_demo01.html" class="code" title="">h2d_demo01</a>	H2D_DEMO01 Demo script for HomoGr ToolBox functions</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%H2D_CORRESP Estimate 2-D homography between point correspondence</span>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% [H] = h2d_corresp(X1_,X2_,:)</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">% Computes an estimate of 3x3 geometric transformation (homography)</span>
+0006 <span class="comment">% from 2-D points X1_ to 2-D points X2_ .</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Output:</span>
+0010 <span class="comment">%  H - 3x3 transform matrix</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">% Input:</span>
+0013 <span class="comment">%  X1_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates</span>
+0014 <span class="comment">%  X2_    - 2xN (inhomogeneous) or 3xN (homogeneous) coordinates</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%  &lt;optional&gt;</span>
+0017 <span class="comment">% 'hType'     - Homography type (see [1] or [2]):</span>
+0018 <span class="comment">%               'projectivity' (DEFAULT)</span>
+0019 <span class="comment">%               'affinity'</span>
+0020 <span class="comment">%               'similarity'</span>
+0021 <span class="comment">%               'isometry'</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">% 'estMethod' - Related to the selected homography (different</span>
+0024 <span class="comment">%               options given in the order of preference, see [1])</span>
+0025 <span class="comment">%               hType = 'projectivity':</span>
+0026 <span class="comment">%                 'dlt' (DEFAULT) / 'dlt_r3'</span>
+0027 <span class="comment">%               hType = 'affinity'</span>
+0028 <span class="comment">%                 'dlt_r2' (DEFAULT)/ 'ransam_affinity' /</span>
+0029 <span class="comment">%                 'exact_affinity'</span>
+0030 <span class="comment">%               hType = 'similarity'</span>
+0031 <span class="comment">%                 'umeyama' (DEFAULT)/ 'ransam_similarity' /</span>
+0032 <span class="comment">%                 'exact_similarity' / 'dlt_r1' (not recommended</span>
+0033 <span class="comment">%                 since strict similarity not proven)</span>
+0034 <span class="comment">%               hType = 'isometry'</span>
+0035 <span class="comment">%                 'umeyama-iso' (DEFAULT) / 'ransam_isometry' /</span>
+0036 <span class="comment">%                 'exact_isometry'</span>
+0037 <span class="comment">%</span>
+0038 <span class="comment">%               NOTE: Different estimation methods (especially</span>
+0039 <span class="comment">%               'ransam_*' may require further parameters and these</span>
+0040 <span class="comment">%               are passed to the functions as:</span>
+0041 <span class="comment">%                 'ransam_iters' (DEFAULT = 100)</span>
+0042 <span class="comment">%                 'dlt_normMeth' (DEFAULT = 1)</span>
+0043 <span class="comment">% See also</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">% References:</span>
+0046 <span class="comment">%</span>
+0047 <span class="comment">%  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast</span>
+0048 <span class="comment">%  2D Homography Estimation From a Few Point Correspondence,</span>
+0049 <span class="comment">%  Research Report, Machine Vision and Pattern Recognition Research</span>
+0050 <span class="comment">%  Group, Lappeenranta University of Technology, Finland, 2008.</span>
+0051 <span class="comment">%</span>
+0052 <span class="comment">%  [2] Hartley, R., Zisserman, A., Multiple View Geometry in</span>
+0053 <span class="comment">%  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">% Author(s):</span>
+0056 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0057 <span class="comment">%</span>
+0058 <span class="comment">% Copyright:</span>
+0059 <span class="comment">%</span>
+0060 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0061 <span class="comment">%   Kamarainen.</span>
+0062 <span class="comment">%</span>
+0063 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0064 <span class="comment">%%</span>
+0065 <a name="_sub0" href="#_subfunctions" class="code">function [H] = h2d_corresp(X1_,X2_,varargin)</a>
+0066 
+0067 <span class="comment">% Parse input arguments</span>
+0068 conf = struct(<span class="string">'hType'</span>,<span class="string">'projectivity'</span>,<span class="string">'estMethod'</span>,<span class="string">'DEFAULT'</span>,<span class="keyword">...</span>
+0069               <span class="string">'ransam_iters'</span>, 100, <span class="string">'dlt_normMeth'</span>,1);
+0070 conf = <a href="getargs.html" class="code" title="function S = getargs(defaultS, varglist);">getargs</a>(conf,varargin);
+0071 
+0072 <span class="comment">%</span>
+0073 <span class="comment">% Construct homogeneous vectors if not</span>
+0074 <span class="keyword">if</span> (size(X1_,1) == 2)
+0075   X1 = [X1_; ones(1,size(X1_,2))];
+0076 <span class="keyword">else</span>
+0077   X1 = X1_;
+0078 <span class="keyword">end</span>;
+0079 <span class="keyword">if</span> (size(X2_,1) == 2)
+0080   X2 = [X2_; ones(1,size(X2_,2))];
+0081 <span class="keyword">else</span>
+0082   X2 = X2_;
+0083 <span class="keyword">end</span>;
+0084 
+0085 <span class="comment">%</span>
+0086 <span class="comment">% Call proper estimation function</span>
+0087 <span class="keyword">switch</span> conf.hType
+0088   <span class="comment">% ISOMETRY estimation methods</span>
+0089  <span class="keyword">case</span> <span class="string">'isometry'</span>,
+0090   <span class="keyword">switch</span> conf.estMethod,
+0091    <span class="keyword">case</span> {<span class="string">'DEFAULT'</span>,<span class="string">'umeyama-iso'</span>},
+0092     H = <a href="hnd_corresp_umeyama.html" class="code" title="function [H, varargout] = hnd_corresp_umeyama(X1_, X2_, scale_)">hnd_corresp_umeyama</a>(X1(1:2,:), X2(1:2,:), 1);
+0093    <span class="keyword">case</span> <span class="string">'ransam_isometry'</span>,
+0094     H = <a href="h2d_corresp_ransam.html" class="code" title="function [bestH bestXt bestParams] = h2d_corresp_ransam(X1_,X2_,tType_,iNum_,bestUsed_,varargin)">h2d_corresp_ransam</a>(X1, X2, 1, conf.ransam_iters, 1);
+0095    <span class="keyword">case</span> <span class="string">'exact_isometry'</span>,
+0096     H = <a href="h2d_corresp_exiso.html" class="code" title="function [H,theta,tx,ty] = h2d_corresp_exiso(X1_,X2_)">h2d_corresp_exiso</a>(X1(1:2,:), X2(1:2,:));
+0097    <span class="keyword">otherwise</span>,
+0098     error([<span class="string">'Not supported estimation method for the homography of '</span> <span class="keyword">...</span>
+0099            <span class="string">'type '</span> conf.hType]);
+0100   <span class="keyword">end</span>;
+0101  
+0102   <span class="comment">% SIMILARITY estimation methods</span>
+0103  <span class="keyword">case</span> <span class="string">'similarity'</span>,
+0104   <span class="keyword">switch</span> conf.estMethod,
+0105    <span class="keyword">case</span> {<span class="string">'DEFAULT'</span>,<span class="string">'umeyama'</span>},
+0106     H = <a href="hnd_corresp_umeyama.html" class="code" title="function [H, varargout] = hnd_corresp_umeyama(X1_, X2_, scale_)">hnd_corresp_umeyama</a>(X1(1:2,:), X2(1:2,:), 0);
+0107    <span class="keyword">case</span> <span class="string">'ransam_similarity'</span>,
+0108     H = <a href="h2d_corresp_ransam.html" class="code" title="function [bestH bestXt bestParams] = h2d_corresp_ransam(X1_,X2_,tType_,iNum_,bestUsed_,varargin)">h2d_corresp_ransam</a>(X1, X2, 2, conf.ransam_iters, 1);
+0109    <span class="keyword">case</span> <span class="string">'exact_similarity'</span>,
+0110     H = <a href="h2d_corresp_exsim.html" class="code" title="function [H,theta,tx,ty,s] = h2d_corresp_exsim(X1_,X2_)">h2d_corresp_exsim</a>(X1(1:2,:), X2(1:2,:));
+0111    <span class="keyword">case</span> <span class="string">'dlt_r1'</span>,
+0112     [nX1 nX2 Un Tn] = <a href="hnd_corresp_coordnorm.html" class="code" title="function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)">hnd_corresp_coordnorm</a>(X1(1:2,:),X2(1:2,:),conf.dlt_normMeth);
+0113     nX1 = [nX1; X1(3,:)];
+0114     nX2 = [nX2; X2(3,:)];
+0115     nH = <a href="h2d_corresp_dlt.html" class="code" title="function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)">h2d_corresp_dlt</a>(nX1, nX2,1);
+0116     H = <a href="hnd_corresp_coorddenorm.html" class="code" title="function [H] = hnd_corresp_coorddenorm(nH_, Un_, Tn_)">hnd_corresp_coorddenorm</a>(nH, Un, Tn);
+0117    <span class="keyword">otherwise</span>,
+0118     error([<span class="string">'Not supported estimation method for the homography of '</span> <span class="keyword">...</span>
+0119            <span class="string">'type '</span> conf.hType]);
+0120   <span class="keyword">end</span>;
+0121 
+0122   <span class="comment">% AFFINITY estimation methods</span>
+0123  <span class="keyword">case</span> <span class="string">'affinity'</span>,
+0124   <span class="keyword">switch</span> conf.estMethod,
+0125    <span class="keyword">case</span> {<span class="string">'DEFAULT'</span>,<span class="string">'dlt_r2'</span>},
+0126     [nX1 nX2 Un Tn] = <a href="hnd_corresp_coordnorm.html" class="code" title="function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)">hnd_corresp_coordnorm</a>(X1(1:2,:),X2(1:2,:),conf.dlt_normMeth);
+0127     nX1 = [nX1; X1(3,:)];
+0128     nX2 = [nX2; X2(3,:)];
+0129     nH = <a href="h2d_corresp_dlt.html" class="code" title="function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)">h2d_corresp_dlt</a>(nX1,nX2,2);
+0130     H = <a href="hnd_corresp_coorddenorm.html" class="code" title="function [H] = hnd_corresp_coorddenorm(nH_, Un_, Tn_)">hnd_corresp_coorddenorm</a>(nH, Un, Tn);
+0131    <span class="keyword">case</span> <span class="string">'ransam_affinity'</span>,
+0132     H = <a href="h2d_corresp_ransam.html" class="code" title="function [bestH bestXt bestParams] = h2d_corresp_ransam(X1_,X2_,tType_,iNum_,bestUsed_,varargin)">h2d_corresp_ransam</a>(X1, X2, 3, conf.ransam_iters, 1);
+0133    <span class="keyword">case</span> <span class="string">'exact_affinity'</span>,
+0134     H = <a href="h2d_corresp_exaff.html" class="code" title="function [H, theta, tx, ty, delta1, delta2, phi] =h2d_corresp_exaff(X1_,X2_)">h2d_corresp_exaff</a>(X1(1:2,:), X2(1:2,:));
+0135    <span class="keyword">otherwise</span>,
+0136     error([<span class="string">'Not supported estimation method for the homography of '</span> <span class="keyword">...</span>
+0137            <span class="string">'type '</span> conf.hType]);
+0138   <span class="keyword">end</span>;
+0139 
+0140   <span class="comment">% PROJECTIVITY estimation methods</span>
+0141  <span class="keyword">case</span> <span class="string">'projectivity'</span>,
+0142   <span class="keyword">switch</span> conf.estMethod,
+0143    <span class="keyword">case</span> {<span class="string">'DEFAULT'</span>,<span class="string">'dlt'</span>},
+0144     [nX1 nX2 Un Tn] = <a href="hnd_corresp_coordnorm.html" class="code" title="function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)">hnd_corresp_coordnorm</a>(X1(1:2,:),X2(1:2,:),conf.dlt_normMeth);
+0145     nX1 = [nX1; X1(3,:)];
+0146     nX2 = [nX2; X2(3,:)];
+0147     nH = <a href="h2d_corresp_dlt.html" class="code" title="function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)">h2d_corresp_dlt</a>(nX1,nX2,0);
+0148     H = <a href="hnd_corresp_coorddenorm.html" class="code" title="function [H] = hnd_corresp_coorddenorm(nH_, Un_, Tn_)">hnd_corresp_coorddenorm</a>(nH, Un, Tn);
+0149    <span class="keyword">case</span> <span class="string">'dlt_r3'</span>,
+0150     [nX1 nX2 Un Tn] = <a href="hnd_corresp_coordnorm.html" class="code" title="function [nX1 nX2 Un Tn] = hnd_corresp_coordnorm(X1_,X2_,nm_)">hnd_corresp_coordnorm</a>(X1(1:2,:),X2(1:2,:),conf.dlt_normMeth);
+0151     nX1 = [nX1; X1(3,:)];
+0152     nX2 = [nX2; X2(3,:)];
+0153     nH = <a href="h2d_corresp_dlt.html" class="code" title="function [H] = h2d_corresp_dlt(X1_,X2_,dltType_)">h2d_corresp_dlt</a>(nX1,nX2,3);
+0154     H = <a href="hnd_corresp_coorddenorm.html" class="code" title="function [H] = hnd_corresp_coorddenorm(nH_, Un_, Tn_)">hnd_corresp_coorddenorm</a>(nH, Un, Tn);
+0155    <span class="keyword">otherwise</span>,
+0156     error([<span class="string">'Not supported estimation method for the homography of '</span> <span class="keyword">...</span>
+0157            <span class="string">'type '</span> conf.hType]);
+0158   <span class="keyword">end</span>;
+0159 
+0160  <span class="keyword">otherwise</span>,
+0161   error([<span class="string">'Unkown homography: '</span> conf.hType]);
+0162 <span class="keyword">end</span>;</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of h2d_aff</title>
+  <meta name="keywords" content="h2d_aff">
+  <meta name="description" content="H2D_AFF Construct 2-D homography matrix restricted to">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2003 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">homogrtb-v0.1.0</a> &gt; h2d_aff.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for homogrtb-v0.1.0&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>h2d_aff
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>H2D_AFF Construct 2-D homography matrix restricted to</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [H_A] = h2d_aff(theta_,t_,delta1_,delta2_,phi_); </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">H2D_AFF Construct 2-D homography matrix restricted to 
+affinity transformation
+
+ [H_A] = h2d_aff(theta_,t_,delta1_,delta2_,phi_)
+
+ Output:
+   H_A - 3x3 matrix of affine transformation
+
+ Input:
+  Transformation parameters (according to refs. [1-2]):
+   theta - 1x1 Rotation angle, in degrees
+       t - 2x1 Translation vector [tx ty]
+  delta1 - 1x1 scale to direction 1 (phi)
+  delta2 - 1x1 scale to direction 2 (phi+90)
+     phi - 1x1 scale angle, in degrees
+
+ See also
+
+ References:
+
+  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast
+  2D Homography Estimation From a Few Point Correspondence,
+  Research Report, Machine Vision and Pattern Recognition Research
+  Group, Lappeenranta University of Technology, Finland, 2008.
+
+  [2] Hartley, R., Zisserman, A., Multiple View Geometry in
+  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.
+
+ Author(s):
+    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;
+
+ Copyright:
+
+   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian
+   Kamarainen.
+
+   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="h2d_demo01.html" class="code" title="">h2d_demo01</a>	H2D_DEMO01 Demo script for HomoGr ToolBox functions</li></ul>
+<!-- crossreference -->
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%H2D_AFF Construct 2-D homography matrix restricted to</span>
+0002 <span class="comment">%affinity transformation</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% [H_A] = h2d_aff(theta_,t_,delta1_,delta2_,phi_)</span>
+0005 <span class="comment">%</span>
+0006 <span class="comment">% Output:</span>
+0007 <span class="comment">%   H_A - 3x3 matrix of affine transformation</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">% Input:</span>
+0010 <span class="comment">%  Transformation parameters (according to refs. [1-2]):</span>
+0011 <span class="comment">%   theta - 1x1 Rotation angle, in degrees</span>
+0012 <span class="comment">%       t - 2x1 Translation vector [tx ty]</span>
+0013 <span class="comment">%  delta1 - 1x1 scale to direction 1 (phi)</span>
+0014 <span class="comment">%  delta2 - 1x1 scale to direction 2 (phi+90)</span>
+0015 <span class="comment">%     phi - 1x1 scale angle, in degrees</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">% See also</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% References:</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%  [1] Kamarainen, J.-K., Paalanen, P., Experimental study on Fast</span>
+0022 <span class="comment">%  2D Homography Estimation From a Few Point Correspondence,</span>
+0023 <span class="comment">%  Research Report, Machine Vision and Pattern Recognition Research</span>
+0024 <span class="comment">%  Group, Lappeenranta University of Technology, Finland, 2008.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%  [2] Hartley, R., Zisserman, A., Multiple View Geometry in</span>
+0027 <span class="comment">%  Computer Vision, 2nd ed, Cambridge Univ. Press, 2003.</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">% Author(s):</span>
+0030 <span class="comment">%    Joni Kamarainen &lt;Joni.Kamarainen@lut.fi&gt;</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">% Copyright:</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">%   Homography estimation toolbox is Copyright (C) 2008 by Joni-Kristian</span>
+0035 <span class="comment">%   Kamarainen.</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">%   $Name:  $ $Revision: 1.1 $  $Date: 2008-05-07 12:22:15 $</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">%</span>
+0040 <a name="_sub0" href="#_subfunctions" class="code">function [H_A] = h2d_aff(theta_,t_,delta1_,delta2_,phi_);</a>
+0041 
+0042 <span class="comment">% Convert to radians</span>
+0043 theta = theta_*pi/180;
+0044 phi = phi_*pi/180;
+0045 
+0046 <span class="comment">% Rotation matrix</span>
+0047 R = [cos(theta) -sin(theta); sin(theta) cos(theta)];
+0048 t = [t_(1) t_(2)]';
+0049 
+0050 D = [delta1_ 0; 0 delta2_];
+0051 Rphi = [cos(phi) -sin(phi); sin(phi) cos(phi)];
+0052 
+0053 <span class="comment">% Final results composed of isometry part and</span>
+0054 <span class="comment">% non-isotropic scaling part</span>
+0055 A = R * Rphi' * D * Rphi;
+0056 H_A = [[A; 0 0] [t; 1]];</pre></div>
+<hr><address>Generated on Wed 07-May-2008 15:22:47 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/">m2html</a></strong> &copy; 2003</address>
+</body>
+</html>

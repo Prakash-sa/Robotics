@@ -1,0 +1,1 @@
+function [vec, theta]=genAxisAngle()
